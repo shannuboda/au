@@ -117,7 +117,7 @@ rec_id = ""
   
   fetch('https://shannuboda-s-workspace-s7j279.us-east-1.xata.sh/db/augusta:main/tables/admission/data?columns=id', options)
     .then(response => response.json())
-    .then(response => console.log(response), rec_id = response.id)
+    .then(response => console.log(response))
     .catch(err => console.error(err));
 
 //Email Template
