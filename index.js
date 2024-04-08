@@ -115,12 +115,27 @@ rec_id = ""
     body: JSON.stringify(data)
   };
   
-  fetch('https://shannuboda-s-workspace-s7j279.us-east-1.xata.sh/db/augusta:main/tables/admission/data?columns=id', options)
-    .then(response => response.json())
-    .then(response => console.log('new value',response))
-    .then(response => rec_id = response['id'])
-    .catch(err => console.error(err));
-
+  // fetch('https://shannuboda-s-workspace-s7j279.us-east-1.xata.sh/db/augusta:main/tables/admission/data?columns=id', options)
+  //   .then(response => response.json())
+  //   .then(response => console.log('new value',response))
+  //   .then(response => rec_id = response['id'])
+  //   .catch(err => console.error(err));
+fetch('https://shannuboda-s-workspace-s7j279.us-east-1.xata.sh/db/augusta:main/tables/admission/data?columns=id', options)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to store data');
+    }
+    // Extract the ID from the Location header
+    const locationHeader = response.headers.get('Location');
+    if (locationHeader) {
+      const id = locationHeader.split('/').pop(); // Extract the ID from the URL
+      console.log('New record ID:', id);
+      rec_id = id; // Store the ID in your rec_id variable
+    } else {
+      throw new Error('Location header not found in response');
+    }
+  })
+  .catch(err => console.error(err));
 //Email Template
     const emailTemplate = `
     <!DOCTYPE html>
