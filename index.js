@@ -117,7 +117,7 @@ rec_id = ""
   
   fetch('https://shannuboda-s-workspace-s7j279.us-east-1.xata.sh/db/augusta:main/tables/admission/data?columns=id', options)
     .then(response => response.json())
-    .then(response => console.log(response))
+    .then(response => console.log('new value',response))
     .then(response => rec_id = response['id'])
     .catch(err => console.error(err));
 
@@ -190,8 +190,8 @@ rec_id = ""
 
 
 
-console.log(data);
-  console.log(req.files[0]); // Logs any files
+console.log('new value222',data);
+  console.log('new value3333',req.files[0]); // Logs any files
   res.json({ message: "File(s) uploaded successfully" });
 });
 
