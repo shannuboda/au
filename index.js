@@ -131,7 +131,7 @@ fetch('https://shannuboda-s-workspace-s7j279.us-east-1.xata.sh/db/augusta:main/t
   
     if (locationHeader) {
        rec_id.push(locationHeader.split('/').pop()); // Extract the ID from the URL
-      console.log('New record ID:', rec_id[0]);
+      console.log('New record ID:', rec_id[1]);
        // Store the ID in your rec_id variable
     } else {
       throw new Error('Location header not found in response');
