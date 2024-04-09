@@ -174,7 +174,7 @@ fetch('https://shannuboda-s-workspace-s7j279.us-east-1.xata.sh/db/augusta:main/t
         <img src='https://augustaaviations.netlify.app/assets/logo-COdVf4q9.png' />
         <h1>Hello, ${data['FirstName']} ${data['LastName']}!</h1>
         <h1 style='color:red'>Welcome To Augusta Aviations!!!!!</h1>
-        <h2>Record ID: ${rec_id[0]}</h2>
+        <h2>Record ID: ${rec_id[1]}</h2>
         <h2>Application ID: ${data['ApplicationID']}</h2>
         <h4>Your Admission Form is Successfully Submitted <br> Our Person Will Contact You Soon once your Payment Status Approved</h4>
         <h5>You can check Your Payment Status under Payment Status tab by entering <b>Application Id and necessary details </b>on <a href="https://augustaaviations.netlify.app">https://augustaaviations.netlify.app</a></h5>
