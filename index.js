@@ -207,7 +207,7 @@ fetch('https://shannuboda-s-workspace-s7j279.us-east-1.xata.sh/db/augusta:main/t
 
 
 
-console.log('new value222',data);
+console.log('new value222',rec_id);
   console.log('new value3333',req.files[0]); // Logs any files
   res.json({ message: "File(s) uploaded successfully" });
 });
