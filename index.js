@@ -149,65 +149,61 @@ fetch('https://shannuboda-s-workspace-s7j279.us-east-1.xata.sh/db/augusta:main/t
   
     if (locationHeader) {
        rec_id.push(locationHeader.split('/').pop()); // Extract the ID from the URL
-      console.log('New record ID:', rec_id[1]);
+       console.log('New record ID:', rec_id[1]);
        // Store the ID in your rec_id variable
     } else {
       throw new Error('Location header not found in response');
     }
     
     // Log rec_id here, inside the fetch call
-    console.log('new value222',rec_id);
-  })
-  .catch(err => console.error(err));
-
-
-  
-//Email Template
+    console.log('new value222', rec_id);
+    
+    // Email sending logic here
     const emailTemplate = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Email Template</title>
-      <style>
-        /* Add your CSS styles here */
-        body {
-          font-family: Arial, sans-serif;
-          background-color: #f4f4f4;
-          padding: 20px;
-        }
-        .container {
-          max-width: 600px;
-          margin: 0 auto;
-          background-color: #fff;
-          padding: 30px;
-          border-radius: 10px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-          color: #333;
-        }
-        p {
-          color: #666;
-        }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <img src='https://augustaaviations.netlify.app/assets/logo-COdVf4q9.png' />
-        <h1>Hello, ${data['FirstName']} ${data['LastName']}!</h1>
-        <h1 style='color:red'>Welcome To Augusta Aviations!!!!!</h1>
-        <h2>Record ID: ${rec_id}</h2>
-        <h2>Application ID: ${data['ApplicationID']}</h2>
-        <h4>Your Admission Form is Successfully Submitted <br> Our Person Will Contact You Soon once your Payment Status Approved</h4>
-        <h5>You can check Your Payment Status under Payment Status tab by entering <b>Application Id and necessary details </b>on <a href="https://augustaaviations.netlify.app">https://augustaaviations.netlify.app</a></h5>
-        <p>ThankYou For Choosing Augusta Aviations <br> Regards,<br>Augusta Aviations <br> Contact Support:<b>+91 9390513054</b> <br> Email Id: agastaaviation1@gmail.com</p>
-      </div>
-    </body>
-    </html>
-  `;
-  
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Email Template</title>
+        <style>
+          /* Add your CSS styles here */
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+          }
+          .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          }
+          h1 {
+            color: #333;
+          }
+          p {
+            color: #666;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <img src='https://augustaaviations.netlify.app/assets/logo-COdVf4q9.png' />
+          <h1>Hello, ${data['FirstName']} ${data['LastName']}!</h1>
+          <h1 style='color:red'>Welcome To Augusta Aviations!!!!!</h1>
+          <h2>Record ID: ${rec_id[1]}</h2>
+          <h2>Application ID: ${data['ApplicationID']}</h2>
+          <h4>Your Admission Form is Successfully Submitted <br> Our Person Will Contact You Soon once your Payment Status Approved</h4>
+          <h5>You can check Your Payment Status under Payment Status tab by entering <b>Application Id and necessary details </b>on <a href="https://augustaaviations.netlify.app">https://augustaaviations.netlify.app</a></h5>
+          <p>ThankYou For Choosing Augusta Aviations <br> Regards,<br>Augusta Aviations <br> Contact Support:<b>+91 9390513054</b> <br> Email Id: agastaaviation1@gmail.com</p>
+        </div>
+      </body>
+      </html>
+    `;
+    
     const mailOptions = {
       from: "website.enginneringmaterials@gmail.com",
       to: SenderMailId, // Change to recipient email
@@ -218,7 +214,7 @@ fetch('https://shannuboda-s-workspace-s7j279.us-east-1.xata.sh/db/augusta:main/t
         path: file.path,
       })),
     };
-  
+    
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error("Error sending email:", error);
@@ -228,7 +224,8 @@ fetch('https://shannuboda-s-workspace-s7j279.us-east-1.xata.sh/db/augusta:main/t
         res.json({ message: "Form submitted successfully and email sent" });
       }
     });
-
+  })
+  .catch(err => console.error(err));
 
 
 console.log('new value222',rec_id);
