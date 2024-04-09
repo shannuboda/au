@@ -24,6 +24,7 @@ app.get('/clo',(req,res)=>{
 
 
 
+
 //image saving function in cloudinary
 let image_url_path = ""
 const upload_cloud_img = (path, name) => {
@@ -93,6 +94,7 @@ function generateApplicationID() {
 
 //form upload API
 app.post("/api", upload.array("files"), (req, res) => {
+  let rec_id = ['hi']
   upload_cloud_img(req.files[0].path,req.files[0].originalname)
 
   // Sets multer to intercept files named "files" on uploaded form data
@@ -106,7 +108,6 @@ for (const [key, value] of Object.entries(req.body)) {
     data[key]=value;
   }
 data['ReceiptPath'] = image_url_path;
-rec_id = ""
 
 //storing Data in xata.io
   const options = {
@@ -127,10 +128,11 @@ fetch('https://shannuboda-s-workspace-s7j279.us-east-1.xata.sh/db/augusta:main/t
     }
     // Extract the ID from the Location header
     const locationHeader = response.headers.get('Location');
+  
     if (locationHeader) {
-      const id = locationHeader.split('/').pop(); // Extract the ID from the URL
-      console.log('New record ID:', id);
-      rec_id = id; // Store the ID in your rec_id variable
+       rec_id.push(locationHeader.split('/').pop()); // Extract the ID from the URL
+      console.log('New record ID:', rec_id[0]);
+       // Store the ID in your rec_id variable
     } else {
       throw new Error('Location header not found in response');
     }
@@ -172,7 +174,7 @@ fetch('https://shannuboda-s-workspace-s7j279.us-east-1.xata.sh/db/augusta:main/t
         <img src='https://augustaaviations.netlify.app/assets/logo-COdVf4q9.png' />
         <h1>Hello, ${data['FirstName']} ${data['LastName']}!</h1>
         <h1 style='color:red'>Welcome To Augusta Aviations!!!!!</h1>
-        <h2>Application ID: ${rec_id}</h2>
+        <h2>Record ID: ${rec_id[0]}</h2>
         <h2>Application ID: ${data['ApplicationID']}</h2>
         <h4>Your Admission Form is Successfully Submitted <br> Our Person Will Contact You Soon once your Payment Status Approved</h4>
         <h5>You can check Your Payment Status under Payment Status tab by entering <b>Application Id and necessary details </b>on <a href="https://augustaaviations.netlify.app">https://augustaaviations.netlify.app</a></h5>
