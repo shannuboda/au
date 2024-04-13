@@ -5,7 +5,24 @@ const nodemailer = require("nodemailer");
 var app = express();
 app.use(cors()); // Allows incoming requests from any IP
 // Generated with CLI
+const mysql = require('mysql');
 
+// Create a connection to the database
+const connection = mysql.createConnection({
+  host: 'sql200.infinityfree.com',
+  user: 'if0_36355485',
+  password: 'WG59QlLFIu',
+  database: 'if0_36355485_augusta_admission'
+});
+
+// Connect to the database
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting to database:', err);
+    return;
+  }
+  console.log('Connected to database');
+});
 // cloudinary configuration for storing images
 const cloudinary = require('cloudinary').v2;          
 cloudinary.config({ 
@@ -107,7 +124,15 @@ app.post("/api", upload.array("files"), (req, res) => {
 for (const [key, value] of Object.entries(req.body)) {
     data[key]=value;
   }
-data['ReceiptPath'] = image_url_path;
+
+  const cloudinaryUrl = image_url_path;
+
+// Split the URL by '/' and extract the last part
+const parts = cloudinaryUrl.split('/');
+const extractedPart = parts[parts.length - 2] + '/' + parts[parts.length - 1];
+
+console.log(extractedPart); // Output: v1712505465/QR.jpg.jpg
+data['ReceiptPath'] = extractedPart;
 
 //storing Data in xata.io
   const options = {
